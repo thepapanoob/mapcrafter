@@ -48,9 +48,12 @@ RUN apt-get update && apt-get install -y cron \
         apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
         ldconfig
 
+#Add default configs
+ADD defaults/ /defaults/
+RUN chmod 777 * /defaults
+
 #Add render.sh to be used with crontab
 ADD render.sh /opt/render.sh
 RUN chmod 0777 /opt/render.sh
 
-#Crontab now needs to be created manually
-CMD cp /config/mapcrafter-cron /etc/cron.d/mapcrafter-cron && chmod 0777 /etc/cron.d/mapcrafter-cron && cron && tail -n 50 -f /config/mapcrafter.log
+CMD cron && tail -n 50 -f /config/mapcrafter.log
