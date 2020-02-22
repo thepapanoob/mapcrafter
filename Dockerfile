@@ -52,8 +52,5 @@ RUN apt-get update && apt-get install -y cron \
 ADD render.sh /opt/render.sh
 RUN chmod 0777 /opt/render.sh
 
-# Crontab every 2 hours
-ADD crontab /etc/cron.d/mapcrafter-cron
-RUN chmod 0777 /etc/cron.d/mapcrafter-cron
-
-CMD cron && tail -n 50 -f /config/mapcrafter.log
+#Crontab now needs to be created manually
+CMD cp /config/mapcrafter-cron /etc/cron.d/mapcrafter-cron && chmod 0777 /etc/cron.d/mapcrafter-cron && cron && tail -n 50 -f /config/mapcrafter.log
