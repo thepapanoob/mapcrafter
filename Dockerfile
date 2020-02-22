@@ -50,7 +50,7 @@ RUN apt-get update && apt-get install -y cron \
 
 #Add default configs
 ADD defaults/ /defaults/
-RUN chmod 777 * /defaults
+RUN chmod 777 -R /defaults/*
 
 #Add render.sh to be used with crontab
 ADD render.sh /opt/render.sh
