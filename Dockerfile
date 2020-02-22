@@ -55,6 +55,5 @@ RUN chmod 0777 /opt/render.sh
 # Crontab every 2 hours
 ADD crontab /etc/cron.d/mapcrafter-cron
 RUN chmod 0777 /etc/cron.d/mapcrafter-cron
-RUN crontab /etc/cron.d/mapcrafter-cron
 
 CMD cron && tail -n 50 -f /config/mapcrafter.log
