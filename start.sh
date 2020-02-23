@@ -38,4 +38,5 @@ fi
 cp /config/mapcrafter-cron /etc/cron.d/mapcrafter-cron && \
 chmod 0777 /etc/cron.d/mapcrafter-cron && \
 crontab /etc/cron.d/mapcrafter-cron && \
-cron -f
+cron -f && \
+tail -n 50 -f /config/mapcrafter.log
