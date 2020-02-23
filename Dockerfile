@@ -60,4 +60,4 @@ RUN chmod 0777 /start.sh
 ADD render.sh /opt/render.sh
 RUN chmod 0777 /opt/render.sh
 
-CMD ./start.sh && cron -f && tail -n 50 -f /config/mapcrafter.log
+CMD ./start.sh && tail -n 50 -f /config/mapcrafter.log
