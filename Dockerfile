@@ -52,8 +52,12 @@ RUN apt-get update && apt-get install -y cron \
 ADD defaults/ /defaults/
 RUN chmod 777 -R /defaults/*
 
-#Add render.sh to be used with crontab
+#Add start.sh
+ADD start.sh /start.sh
+RUN chmod 0777 /start.sh
+
+#Add render.sh 
 ADD render.sh /opt/render.sh
 RUN chmod 0777 /opt/render.sh
 
-CMD cron && tail -n 50 -f /config/mapcrafter.log
+CMD ./start.sh && cron -f && tail -n 50 -f /config/mapcrafter.log
