@@ -22,7 +22,7 @@ fi
 
 if [ ! -f /config/mapcrafter.log ]; then
     echo "No log file found. Creating new one..."
-    touch mapcrafter.log
+    touch /config/mapcrafter.log
 fi
 
 if [ ! -d /output/static/html/ ]
