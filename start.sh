@@ -34,6 +34,15 @@ else
     cp /config/favicon.png /output/static/html/favicon.png
 fi
 
+#Save env to file
+if [ ! -f /opt/temp_env.sh ]
+then
+    printenv | sed 's/^\(.*\)$/export \1/g' | grep -E "^export threads" > /opt/temp_env.sh
+else
+    rm /opt/temp_env.sh
+    printenv | sed 's/^\(.*\)$/export \1/g' | grep -E "^export threads" > /opt/temp_env.sh
+fi
+
 #Copy crontab file from config to cron.d directory and gives permission to run
 cp /config/mapcrafter-cron /etc/cron.d/mapcrafter-cron && \
 chmod 0777 /etc/cron.d/mapcrafter-cron && \

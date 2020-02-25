@@ -28,7 +28,8 @@ FROM ubuntu:18.04
 MAINTAINER Dinip <dinip@dinip.pt>
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV threads=4
+ENV HOME /root
+ENV threads 4
 
 VOLUME ["/config"]
 VOLUME ["/output"]
@@ -59,8 +60,5 @@ RUN chmod 0777 /start.sh
 #Add render.sh 
 ADD render.sh /opt/render.sh
 RUN chmod 0777 /opt/render.sh
-
-#Save env threads to file
-RUN printenv | sed 's/^\(.*\)$/export \1/g' | grep -E "^export threads" > /opt/temp_env.sh
 
 CMD ./start.sh && tail -n 50 -f /config/mapcrafter.log
