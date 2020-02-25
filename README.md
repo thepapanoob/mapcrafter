@@ -1,6 +1,8 @@
 # Mapcrafter
 Docker container to run [Mapcrafter](https://mapcrafter.org) 
-This repo was make mainly to be used in my [personal server](https://map.confusion.pt/) but I've adapted it to a template, so it could be used by more people. Only to be used with docker.
+This repo was make mainly to be used in my [personal server](https://map.confusion.pt/) but I've adapted it to a template, so it could be used by more people.
+
+[Docker build ready for 1.15](https://hub.docker.com/r/dinip/mapcrafter)
 
 # Usage
 ## Minecraft 1.15
