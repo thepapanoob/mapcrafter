@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y libpng-dev libjpeg-turbo8 libboost-iost
 
 # Add the git repo and build it
 RUN mkdir /git && cd /git && \
-    git clone --single-branch --branch world115 -n https://github.com/Dinip/mapcrafter.git && \
+    git clone --single-branch --branch world113 -n https://github.com/Dinip/mapcrafter.git && \
     cd mapcrafter/ && git checkout \
     && mkdir build && cd build && \
     cmake .. && \
