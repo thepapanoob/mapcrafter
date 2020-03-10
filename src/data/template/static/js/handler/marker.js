@@ -11,6 +11,9 @@ function MarkerHandler(control, markers) {
 	this.visible = {};
 }
 
+//Markers layer
+var layerGroup = L.layerGroup();
+
 MarkerHandler.prototype.onMapChange = function(name, rotation) {
 	for(var group in this.layerGroups)
 		this.ui.lmap.removeLayer(this.layerGroups[group]);
@@ -36,7 +39,13 @@ MarkerHandler.prototype.onMapChange = function(name, rotation) {
 				iconSize: (iconSize ? iconSize : [24, 24]),
 			}));
 		}
-		marker.bindPopup(markerInfo.text ? markerInfo.text : markerInfo.title);
+		var copied = "Coords copied to clipboard"
+		marker.bindPopup(markerInfo.text ? markerInfo.text : markerInfo.title + "<br />" + copied.bold());
+		//On marker click
+		marker.on('click', function(ev){
+		//Copy coords x, y, z to clipboard
+ 		navigator.clipboard.writeText(markerInfo.pos[0] + " " + 100 + " " + markerInfo.pos[1]);
+		});
 		return marker;
 	};
 	
@@ -56,7 +65,6 @@ MarkerHandler.prototype.onMapChange = function(name, rotation) {
 			groupInfo.createMarker = createDefaultMarker;
 		
 		var markers = groupInfo.markers[world];
-		var layerGroup = L.layerGroup();
 		for(var j = 0; j < markers.length; j++) {
 			var markerInfo = markers[j];
 			var marker = groupInfo.createMarker(this.ui, groupInfo, markerInfo);
@@ -77,6 +85,10 @@ MarkerHandler.prototype.onMapChange = function(name, rotation) {
 		this.show(group, this.visible[group]);
 
 	this.updateMarkerCounts();
+};
+
+MarkerHandler.prototype.getLayerGroup = function() {
+	return layerGroup;
 };
 
 MarkerHandler.prototype.updateMarkerCounts = function() {
