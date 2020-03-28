@@ -12,7 +12,7 @@ function MarkerHandler(control, markers) {
 }
 
 //Markers layer
-var layerGroup = L.layerGroup();
+var layerGroup = null;
 
 MarkerHandler.prototype.onMapChange = function(name, rotation) {
 	for(var group in this.layerGroups)
@@ -65,6 +65,7 @@ MarkerHandler.prototype.onMapChange = function(name, rotation) {
 			groupInfo.createMarker = createDefaultMarker;
 		
 		var markers = groupInfo.markers[world];
+		layerGroup = L.layerGroup();
 		for(var j = 0; j < markers.length; j++) {
 			var markerInfo = markers[j];
 			var marker = groupInfo.createMarker(this.ui, groupInfo, markerInfo);
