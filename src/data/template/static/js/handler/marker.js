@@ -12,7 +12,7 @@ function MarkerHandler(control, markers) {
 }
 
 //Markers layer
-var layerGroup = L.layerGroup();
+var layerGroupForSearch = L.layerGroup();
 
 MarkerHandler.prototype.onMapChange = function(name, rotation) {
 	for(var group in this.layerGroups)
@@ -65,11 +65,14 @@ MarkerHandler.prototype.onMapChange = function(name, rotation) {
 			groupInfo.createMarker = createDefaultMarker;
 		
 		var markers = groupInfo.markers[world];
+		var layerGroup = L.layerGroup();
 		for(var j = 0; j < markers.length; j++) {
 			var markerInfo = markers[j];
 			var marker = groupInfo.createMarker(this.ui, groupInfo, markerInfo);
-			if(marker != null)
+			if(marker != null){
 				marker.addTo(layerGroup);
+				marker.addTo(layerGroupForSearch);
+			}
 		}
 		
 		this.layerGroups[group] = layerGroup;
@@ -88,7 +91,7 @@ MarkerHandler.prototype.onMapChange = function(name, rotation) {
 };
 
 MarkerHandler.prototype.getLayerGroup = function() {
-	return layerGroup;
+	return layerGroupForSearch;
 };
 
 MarkerHandler.prototype.updateMarkerCounts = function() {
