@@ -1,53 +1,60 @@
-#
 # Build Image
-#
 
-FROM alpine:3.8 as builder
+FROM ubuntu:18.04 as mapcrafter-builder
+MAINTAINER Dinip <me@dinip.pt>
 
-# Add the git repo
-ADD . /git/mapcrafter
+ENV DEBIAN_FRONTEND noninteractive
 
-# Dependencies needed for building Mapcrafter
-# (not sure how many of these are actually needed)
-RUN apk add \
-        cmake \
-        gcc \
-        make \
-        g++ \
-        zlib-dev \
-        libpng-dev \
-        libjpeg-turbo-dev \
-        boost-dev
+# Get dependencies
+RUN apt-get update && apt-get install -y libpng-dev libjpeg-turbo8 libboost-iostreams-dev git cmake build-essential libboost-all-dev libjpeg-dev
 
-# Build mapcrafter from source
-RUN cd /git/mapcrafter && \
-    mkdir build && cd build && \
+# Add the git repo and build it
+RUN mkdir /git && cd /git && \
+    git clone --single-branch --branch world116 -n https://github.com/Dinip/mapcrafter.git && \
+    cd mapcrafter/ && git checkout \
+    && mkdir build && cd build && \
     cmake .. && \
     make && \
     mkdir /tmp/mapcrafter && \
     make DESTDIR=/tmp/mapcrafter install
 
-
-#
 # Final Image
-#
 
-FROM alpine:3.8
+FROM ubuntu:18.04
+MAINTAINER Dinip <me@dinip.pt>
+
+ENV DEBIAN_FRONTEND noninteractive
+ENV HOME /root
+ENV threads 4
+
+VOLUME ["/config"]
+VOLUME ["/output"]
+VOLUME ["/world"]
 
 # Mapcrafter, built in previous stage
-COPY --from=builder /tmp/mapcrafter/ /
+COPY --from=mapcrafter-builder /tmp/mapcrafter/ /
 
 # Depedencies needed for running Mapcrafter
-RUN apk add \
-        libpng \
-        libjpeg-turbo \
-        boost \
-        boost-iostreams \
-        boost-system \
-        boost-filesystem \
-        boost-program_options \
-        shadow
+RUN apt-get update && apt-get install -y cron \
+        libpng16-16 \
+        libjpeg-turbo-progs \
+        libboost-iostreams1.65.1 \
+        libboost-system1.65.1 \
+        libboost-filesystem1.65.1 \
+        libboost-program-options1.65.1 && \
+        apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+        ldconfig
 
-# Entrypoint
-ADD entrypoint.sh /
-ENTRYPOINT ["/entrypoint.sh"]
+#Add default configs
+ADD defaults/ /defaults/
+RUN chmod 777 -R /defaults/*
+
+#Add start.sh
+ADD start.sh /start.sh
+RUN chmod 0777 /start.sh
+
+#Add render.sh 
+ADD render.sh /opt/render.sh
+RUN chmod 0777 /opt/render.sh
+
+CMD ./start.sh && tail -n 50 -f /config/mapcrafter.log
