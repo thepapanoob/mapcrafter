@@ -1,5 +1,5 @@
 # Mapcrafter
-Docker container to run [Mapcrafter](https://mapcrafter.org) 
+Docker container to run [Mapcrafter](https://mapcrafter.org).
 This repo was make mainly to be used in my [personal server](https://map.confusion.pt/) but I've adapted it to a template, so it could be used by everyone.
 
 [Docker build ready for 1.16](https://hub.docker.com/r/dinip/mapcrafter)
@@ -10,8 +10,6 @@ This repo was make mainly to be used in my [personal server](https://map.confusi
 docker run -d -v /path/to/output:/output -v /path/to/config:/config -v /path/to/world:/world -e threads=4 --name mapcrafter dinip/mapcrafter:world116
 ```
 Change `-e threads=` to how many threads you want the render to use. Don't set this value higher than the amount of cores that your cpu have. If no value is set, it will set automatically to 4. 
-
-**dinip/mapcrafter:world115 is the only image maintained at this date (22/02/2020).**
 
 # Volumes
 
