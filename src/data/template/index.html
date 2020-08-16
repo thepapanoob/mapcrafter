@@ -73,7 +73,7 @@
 		var Mapcrafter = new MapcrafterUI(CONFIG);
 
 		function init() {
-			Mapcrafter.init();
+			Mapcrafter.init(`{lastUpdate}`);
 			
 			Mapcrafter.addControl(new MapSelectControl(), "topright", 1);
 			Mapcrafter.addControl(new RotationSelectControl(), "bottomright", 1);

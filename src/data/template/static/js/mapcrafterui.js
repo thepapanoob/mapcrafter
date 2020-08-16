@@ -178,12 +178,12 @@ function MapcrafterUI(config) {
  * object, initializes the available maps, sets the view to the first available map and
  * also initializes control widgets and handlers that were added to the ui earlier.
  */
-MapcrafterUI.prototype.init = function() {
+MapcrafterUI.prototype.init = function(lastUpdate) {
 	// create the leaflet map object
 	this.lmap = L.map("mcmap", {
 		crs: L.CRS.Simple
 	}).setView([0, 0], 0, {animate: false});
-	this.lmap.attributionControl.addAttribution("Map rendered with <a href='http://mapcrafter.org'>Mapcrafter</a>");
+	this.lmap.attributionControl.addAttribution(`Last update: ${lastUpdate}`);
 	
 	// initialize the maps
 	var firstMap = null;

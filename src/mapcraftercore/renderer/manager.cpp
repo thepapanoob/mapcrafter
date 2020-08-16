@@ -472,7 +472,7 @@ bool RenderManager::writeTemplateIndexHtml() const {
 
 	time_t t = std::time(nullptr);
 	char buffer[256];
-	std::strftime(buffer, sizeof(buffer), "%d.%m.%Y, %H:%M:%S", std::localtime(&t));
+	std::strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M %Z", std::localtime(&t));
 	vars["lastUpdate"] = buffer;
 
 	vars["backgroundColor"] = config.getBackgroundColor().hex;
