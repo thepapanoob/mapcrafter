@@ -1,30 +1,5 @@
 <!DOCTYPE html>
 
-<!--
-
- ________________________________________ 
-/ We are the Borg. We will add your maps \
-| to our own. Your worlds will adapt to  |
-\ service us. Resistance is futile.      /
- ---------------------------------------- 
-        \
-         \
-          \
-           /-/_"/-/_/-/|
-          /"-/-_"/-_//||
-         /__________/|/|
-         |"|_'='-]:+|/||
-         |-+-|.|_'-"||//
-         |[".[:!+-'=|//
-         |='!+|-:]|-|/
-          ----------
-
-
-
-(http://startrekasciiart.blogspot.de/2011/06/borg-cube.html, thanks to Carlo Valenti!)
-
--->
-
 <html>
 	<head>
 		<script>
@@ -73,7 +48,8 @@
 		var Mapcrafter = new MapcrafterUI(CONFIG);
 
 		function init() {
-			Mapcrafter.init(`{lastUpdate}`);
+			Mapcrafter.init();
+			Mapcrafter.lastUpdate(`{lastUpdate}`);
 			
 			Mapcrafter.addControl(new MapSelectControl(), "topright", 1);
 			Mapcrafter.addControl(new RotationSelectControl(), "bottomright", 1);
