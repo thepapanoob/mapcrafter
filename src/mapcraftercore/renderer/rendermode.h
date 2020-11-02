@@ -169,7 +169,8 @@ enum class RenderModeType {
 	DAYLIGHT,
 	NIGHTLIGHT,
 	CAVE,
-	CAVELIGHT
+	CAVELIGHT,
+	NETHER
 };
 
 enum class OverlayType {

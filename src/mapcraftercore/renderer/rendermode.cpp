@@ -121,6 +121,7 @@ std::ostream& operator<<(std::ostream& out, RenderModeType render_mode) {
 	case RenderModeType::NIGHTLIGHT: return out << "nightlight";
 	case RenderModeType::CAVE: return out << "cave";
 	case RenderModeType::CAVELIGHT: return out << "cavelight";
+	case RenderModeType::NETHER: return out << "nether";
 	default: return out << "unknown";
 	}
 }
