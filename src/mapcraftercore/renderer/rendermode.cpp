@@ -22,6 +22,7 @@
 #include "blockimages.h"
 #include "image.h"
 #include "rendermodes/cave.h"
+#include "rendermodes/nether.h"
 #include "rendermodes/lighting.h"
 #include "rendermodes/heightoverlay.h"
 #include "rendermodes/slimeoverlay.h"
@@ -153,8 +154,13 @@ RenderMode* createRenderMode(const config::WorldSection& world_config,
 			render_mode->addRenderMode(new LightingRenderMode(true, map_config.getLightingIntensity(),
 						map_config.getLightingWaterIntensity(), true));
 		render_mode->addRenderMode(new HeightOverlay());
-	}
-	else if (type == RenderModeType::DAYLIGHT) {
+	} else if (type == RenderModeType::NETHER) {
+		// hide some walls of caves which would cover the view into the caves
+		if (map_config.getRenderView() == RenderViewType::ISOMETRIC)
+			render_mode->addRenderMode(new CaveRenderMode({mc::DIR_SOUTH, mc::DIR_WEST, mc::DIR_TOP}));
+		else
+			render_mode->addRenderMode(new CaveRenderMode({mc::DIR_TOP}));
+	} else if (type == RenderModeType::DAYLIGHT) {
 		render_mode->addRenderMode(new LightingRenderMode(true,
 					map_config.getLightingIntensity(), map_config.getLightingWaterIntensity(),
 					world_config.getDimension() == mc::Dimension::END));

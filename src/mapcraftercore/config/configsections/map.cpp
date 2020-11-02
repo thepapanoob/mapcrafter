@@ -45,8 +45,10 @@ renderer::RenderModeType as<renderer::RenderModeType>(const std::string& from) {
 		return renderer::RenderModeType::CAVE;
 	else if (from == "cavelight")
 		return renderer::RenderModeType::CAVELIGHT;
+	else if (from == "nether")
+		return renderer::RenderModeType::NETHER;
 	throw std::invalid_argument("Must be one of 'plain', 'daylight', 'nightlight', "
-			"'cave' or 'cavelight'!");
+			"'cave', 'cavelight' or 'nether'!");
 }
 
 template <>
